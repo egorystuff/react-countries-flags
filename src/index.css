@@ -41,3 +41,8 @@ body {
   font-weight: var(--fw-light);
   background-color: var(--colors-bg);
 }
+
+.wrap {
+  justify-content: space-around;
+  align-items: center;
+}
