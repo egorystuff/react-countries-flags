@@ -36,7 +36,7 @@ const ModeSwitcher = styled.div`
 // ---------------------------------------------------------------------------------
 
 export const Header: React.FC = () => {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState<string>("light");
 
   const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
