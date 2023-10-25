@@ -9,7 +9,6 @@ const Wrapper = styled.article`
   box-shadow: var(--shadow);
   cursor: pointer;
   overflow: hidden;
-  padding: 10px;
 `;
 
 const CardImage = styled.img`
@@ -21,13 +20,31 @@ const CardImage = styled.img`
   box-shadow: var(--shadow);
 `;
 
-const CardBody = styled.div``;
+const CardBody = styled.div`
+  padding: 1rem 1.5rem 2rem;
+`;
 
-const CardTitle = styled.h3``;
+const CardTitle = styled.h3`
+  margin: 0;
+  font-size: var(--fs-md);
+  font-weight: var(--fw-bold);
+`;
 
-const CardList = styled.ul``;
+const CardList = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 1rem 0 0;
+`;
 
-const CardListItem = styled.li``;
+const CardListItem = styled.li`
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  font-weight: var(--fw-light);
+
+  & > b {
+    font-weight: var(--fw-bold);
+  }
+`;
 
 // ---------------------------------------------------------------------------------
 
