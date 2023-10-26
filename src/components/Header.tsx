@@ -1,7 +1,7 @@
 import React from "react";
-
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import { IoMoon, IoMoonOutline } from "react-icons/io5";
 
@@ -20,9 +20,7 @@ const Wrapper = styled.div`
   padding: 1.5rem 0;
 `;
 
-const Title = styled.a.attrs({
-  href: "/",
-})`
+const Title = styled.div`
   color: var(--colors-text);
   font-size: var(--fs-md);
   text-decoration: none;
@@ -51,7 +49,9 @@ export const Header: React.FC = () => {
       <HeaderEl>
         <Container>
           <Wrapper>
-            <Title>Where is the world?</Title>
+            <Link to='/' style={{ textDecoration: "none" }}>
+              <Title>Where is the world?</Title>
+            </Link>
             <ModeSwitcher onClick={toggleTheme}>
               {theme === "light" ? <IoMoonOutline size={"16px"} /> : <IoMoon size={"16px"} />}
               <span style={{ marginLeft: "0.75rem" }}>{theme} Theme</span>
