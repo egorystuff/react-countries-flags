@@ -52,7 +52,11 @@ export const HomePage: React.FC = () => {
 
   useEffect(() => {
     if (!filteredCountries.length) axios.get(ALL_COUNTRIES).then(({ data }) => setCountries(data));
-  }, [filteredCountries, setCountries]);
+  }, []);
+
+  useEffect(() => {
+    handleSearch("", "");
+  }, [countries]);
 
   return (
     <div>

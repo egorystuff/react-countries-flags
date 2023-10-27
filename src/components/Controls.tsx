@@ -35,6 +35,7 @@ export const Controls: React.FC<PropsType> = (props) => {
   };
 
   const options: Optionstype[] = [
+    { value: "", label: "All" },
     { value: "Africa", label: "Africa" },
     { value: "America", label: "America" },
     { value: "Asia", label: "Asia" },
@@ -43,9 +44,6 @@ export const Controls: React.FC<PropsType> = (props) => {
   ];
 
   useEffect(() => {
-    // console.log(region);
-    console.log(search);
-
     const regionValue = region || "";
 
     props.onSearch(search, regionValue);
@@ -57,11 +55,10 @@ export const Controls: React.FC<PropsType> = (props) => {
       <CustomSelect
         options={options}
         placeholder='Filter by Region'
-        isClearable
+        // isClearable
         isSearchable={false}
-        value={region}
+        // value={""}
         onChange={(event: any) => {
-          console.log(event);
           setRegion(event.value);
         }}
       />
