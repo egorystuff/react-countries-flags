@@ -21,9 +21,13 @@ const Wrapper = styled.div`
 
 // ---------------------------------------------------------------------------------
 
-export const Controls: React.FC = () => {
-  const [search, setSearch] = useState<string>("");
-  const [region, setRegion] = useState<string>("");
+type PropsType = {
+  onSearch: (search: string, region: string) => void;
+};
+
+export const Controls: React.FC<PropsType> = (props) => {
+  const [search, setSearch] = useState("");
+  const [region, setRegion] = useState("");
 
   type Optionstype = {
     value: string;
@@ -38,6 +42,15 @@ export const Controls: React.FC = () => {
     { value: "Oceania", label: "Oceania" },
   ];
 
+  useEffect(() => {
+    // console.log(region);
+    console.log(search);
+
+    const regionValue = region || "";
+
+    props.onSearch(search, regionValue);
+  }, [search, region]);
+
   return (
     <Wrapper>
       <Search search={search} setSearch={setSearch} />
@@ -46,8 +59,11 @@ export const Controls: React.FC = () => {
         placeholder='Filter by Region'
         isClearable
         isSearchable={false}
-        // value={region}
-        // onChange={setRegion}
+        value={region}
+        onChange={(event: any) => {
+          console.log(event);
+          setRegion(event.value);
+        }}
       />
     </Wrapper>
   );
