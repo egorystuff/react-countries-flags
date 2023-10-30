@@ -8,17 +8,49 @@ import { searcByCountry } from "../config";
 import { Button } from "../components/Button";
 import { Info } from "../components/Info";
 
+type InfoType = {
+  name: { common: string; nativeName: {}; official: string };
+  flags: {
+    alt: string;
+    png: string;
+    svg: string;
+  };
+  capital: [];
+  population: number;
+  region: string;
+  subregion: string;
+  languages: {};
+  // borders: any;
+  // tld: any;
+};
+
 export const Details: React.FC = () => {
-  const { name } = useParams();
+  const { name } = useParams<string>();
   const navigate = useNavigate();
 
-  const [country, setCountry] = useState(null);
-
-  console.log(country);
+  const [country, setCountry] = useState<InfoType>();
 
   useEffect(() => {
     axios.get(searcByCountry(name)).then(({ data }) => setCountry(data[0]));
   }, [name]);
+
+  // if (country !== undefined) {
+  //   const languagesInfo = Object.keys(country.languages).map((value, index) => Object.values(country.languages[value]));
+  // }
+
+  const countryInfo = {
+    name: country?.name.common,
+    flag: country?.flags.png,
+    flagAlt: country?.flags.alt,
+    official: country?.name.official,
+    capital: country?.capital,
+    population: country?.population.toLocaleString(),
+    region: country?.region,
+    subregion: country?.subregion,
+    languages: country?.languages,
+  };
+
+  console.log();
 
   return (
     <div>
@@ -26,7 +58,7 @@ export const Details: React.FC = () => {
         <IoArrowBack /> go Back
       </Button>
 
-      {/* {country && <Info name={country.name.common} flag={undefined}></Info>} */}
+      {country && <Info {...countryInfo} />}
     </div>
   );
 };
