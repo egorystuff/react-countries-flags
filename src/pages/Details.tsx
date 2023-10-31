@@ -21,20 +21,17 @@ type InfoType = {
   subregion: string;
   languages: {};
   borders: [];
-  // tld: any;
-};
+} | null;
 
 export const Details: React.FC = () => {
   const { name } = useParams<string>();
   const navigate = useNavigate();
 
-  const [country, setCountry] = useState<InfoType>();
+  const [country, setCountry] = useState<InfoType>(null);
 
   useEffect(() => {
     axios.get(searcByCountry(name)).then(({ data }) => setCountry(data[0]));
   }, [name]);
-
-  // const languagesInfo = Object.keys(country.languages).map((value, index) => Object.values(country.languages[value]));
 
   const countryInfo = {
     name: country?.name.common,
@@ -46,18 +43,18 @@ export const Details: React.FC = () => {
     region: country?.region,
     subregion: country?.subregion,
     borders: country?.borders,
-    // languages: country?.languages,
+    languages: country?.languages,
   };
 
-  console.log(country);
+  // console.log(country);
 
   return (
     <div>
       <Button onClick={() => navigate(-1)}>
-        <IoArrowBack /> go Back
+        <IoArrowBack /> Back
       </Button>
 
-      {country && <Info {...countryInfo} />}
+      {country && <Info navigate={navigate} {...countryInfo} />}
     </div>
   );
 };

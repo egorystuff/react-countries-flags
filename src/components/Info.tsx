@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
+import { filterByCode } from "../config";
 
 // styled-components----------------------------------------------------------------
 
@@ -100,12 +102,22 @@ type InfoPropsType = {
   population: string | undefined;
   region: string | undefined;
   subregion: string | undefined;
-  // languages: {} | undefined;
+  languages: {} | undefined;
   borders: [] | undefined;
-  // tld: any;
+  navigate: (value: any) => void;
 };
 
 export const Info: React.FC<InfoPropsType> = (props) => {
+  const [neighbors, setNeighbors] = useState([]);
+
+  useEffect(() => {
+    if (props.borders?.length) {
+      axios
+        .get(filterByCode(props.borders))
+        .then(({ data }) => setNeighbors(data.map((c: { name: { common: string } }) => c.name.common)));
+    }
+  }, [props.borders]);
+
   return (
     <div>
       <Wrapper>
@@ -119,14 +131,17 @@ export const Info: React.FC<InfoPropsType> = (props) => {
                 <b>Capital: </b>
                 {props.capital}
               </ListItem>
+
               <ListItem>
                 <b>Population: </b>
                 {props.population}
               </ListItem>
+
               <ListItem>
                 <b>Region: </b>
                 {props.region}
               </ListItem>
+
               <ListItem>
                 <b>Subregion: </b>
                 {props.subregion}
@@ -142,8 +157,14 @@ export const Info: React.FC<InfoPropsType> = (props) => {
               <span>There is no border countries</span>
             ) : (
               <TagGroup>
-                {props.borders.map((b) => (
-                  <Tag key={b}>{b}</Tag>
+                {neighbors.map((b) => (
+                  <Tag
+                    onClick={() => {
+                      props.navigate(`/country/${b}`);
+                    }}
+                    key={b}>
+                    {b}
+                  </Tag>
                 ))}
               </TagGroup>
             )}
