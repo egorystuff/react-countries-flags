@@ -20,7 +20,7 @@ type InfoType = {
   region: string;
   subregion: string;
   languages: {};
-  // borders: any;
+  borders: [];
   // tld: any;
 };
 
@@ -34,9 +34,7 @@ export const Details: React.FC = () => {
     axios.get(searcByCountry(name)).then(({ data }) => setCountry(data[0]));
   }, [name]);
 
-  // if (country !== undefined) {
-  //   const languagesInfo = Object.keys(country.languages).map((value, index) => Object.values(country.languages[value]));
-  // }
+  // const languagesInfo = Object.keys(country.languages).map((value, index) => Object.values(country.languages[value]));
 
   const countryInfo = {
     name: country?.name.common,
@@ -47,10 +45,11 @@ export const Details: React.FC = () => {
     population: country?.population.toLocaleString(),
     region: country?.region,
     subregion: country?.subregion,
-    languages: country?.languages,
+    borders: country?.borders,
+    // languages: country?.languages,
   };
 
-  console.log();
+  console.log(country);
 
   return (
     <div>
