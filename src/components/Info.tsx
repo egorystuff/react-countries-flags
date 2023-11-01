@@ -118,6 +118,9 @@ export const Info: React.FC<InfoPropsType> = (props) => {
     }
   }, [props.borders]);
 
+  let languagesInfo: any[] = [];
+  if (props.languages !== undefined) languagesInfo = Object.values(props.languages);
+
   return (
     <div>
       <Wrapper>
@@ -150,6 +153,19 @@ export const Info: React.FC<InfoPropsType> = (props) => {
 
             <List></List>
           </ListGroup>
+
+          <Meta>
+            <b>Languages: </b>
+            {!languagesInfo.length ? (
+              <span>There is no border countries</span>
+            ) : (
+              <TagGroup>
+                {languagesInfo.map((l) => (
+                  <span key={l}>{l}</span>
+                ))}
+              </TagGroup>
+            )}
+          </Meta>
 
           <Meta>
             <b>Border Countries: </b>

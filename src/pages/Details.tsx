@@ -46,8 +46,6 @@ export const Details: React.FC = () => {
     languages: country?.languages,
   };
 
-  // console.log(country);
-
   return (
     <div>
       <Button onClick={() => navigate(-1)}>
