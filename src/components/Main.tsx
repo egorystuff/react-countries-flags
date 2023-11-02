@@ -1,8 +1,6 @@
-import React from "react";
+import {FC, ReactNode} from "react";
 import styled from "styled-components";
-import { Container } from "./Container";
-
-// styled-components----------------------------------------------------------------
+import {Container} from "../Layouts/Container";
 
 const Wrapper = styled.main`
   padding: 2rem 0;
@@ -12,25 +10,14 @@ const Wrapper = styled.main`
   }
 `;
 
-const Title = styled.a.attrs({
-  href: "/",
-})`
-  color: var(--colors-text);
-  font-size: var(--fs-md);
-  text-decoration: none;
-  font-weight: var(--fw-bold);
-`;
-
-// ---------------------------------------------------------------------------------
-
 type PropsType = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
-export const Main: React.FC<PropsType> = (props) => {
+export const Main: FC<PropsType> = ({children}) => {
   return (
     <Wrapper>
-      <Container>{props.children}</Container>
+      <Container>{children}</Container>
     </Wrapper>
   );
 };

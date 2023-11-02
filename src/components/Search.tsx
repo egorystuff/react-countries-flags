@@ -1,7 +1,6 @@
-import React from "react";
+import {ChangeEvent, FC} from "react";
 import styled from "styled-components";
-
-import { IoSearch } from "react-icons/io5";
+import {IoSearch} from "react-icons/io5";
 
 // styled-components----------------------------------------------------------------
 const InputContainer = styled.label`
@@ -39,11 +38,16 @@ type PropsType = {
   setSearch: (value: string) => void;
 };
 
-export const Search: React.FC<PropsType> = (props) => {
+export const Search: FC<PropsType> = ({setSearch, search}) => {
+
+  const updateInputValue = (event: ChangeEvent<HTMLInputElement>): void => {
+    setSearch(event.target.value)
+  }
+
   return (
     <InputContainer>
-      <IoSearch />
-      <Input onChange={(event) => props.setSearch(event.target.value)} value={props.search} />
+      <IoSearch/>
+      <Input onChange={updateInputValue} value={search}/>
     </InputContainer>
   );
 };
