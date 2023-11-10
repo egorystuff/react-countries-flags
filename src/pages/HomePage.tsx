@@ -1,11 +1,11 @@
-import { useContext, useEffect, useState } from "react";
-import axios from "axios";
+import { useContext, useEffect, useState, FC } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import { ALL_COUNTRIES } from "../config";
 import { List } from "../components/List";
-import { Card } from "../components/Card";
-import { Controls } from "../components/Controls";
+import { Card } from "../components/Card/Card";
+import { Controls } from "../components/Controls/Controls";
 import { CountriesContext } from "../App";
 
 type NameCountryType = {
@@ -14,7 +14,7 @@ type NameCountryType = {
   official: string;
 };
 
-type FlagsCountrytype = {
+type FlagsCountryType = {
   alt: string;
   png: string;
   svg: string;
@@ -25,10 +25,12 @@ type CountriesPropsType = {
   name: NameCountryType;
   population: number;
   region: string;
-  flags: FlagsCountrytype;
+  flags: FlagsCountryType;
 };
 
-export const HomePage: React.FC = () => {
+const HomePage: FC = () => {
+  const navigate = useNavigate();
+
   const { countries, setCountries } = useContext(CountriesContext);
 
   const [filteredCountries, setFilteredCountries] = useState(countries);
@@ -48,7 +50,9 @@ export const HomePage: React.FC = () => {
     setFilteredCountries(data);
   };
 
-  const navigate = useNavigate();
+  const goToCountryInfo = (path: string): void => {
+    navigate(path)
+  }
 
   useEffect(() => {
     if (!filteredCountries.length) axios.get(ALL_COUNTRIES).then(({ data }) => setCountries(data));
@@ -75,14 +79,14 @@ export const HomePage: React.FC = () => {
 
           return (
             <Card
-              onClick={() => {
-                navigate(`/country/${c.name.common}`);
-              }}
+              onClick={() => goToCountryInfo(`/country/${c.name.common}`)}
               key={c.name.common}
-              {...countryInfo}></Card>
+              {...countryInfo}/>
           );
         })}
       </List>
     </div>
   );
 };
+
+export default HomePage

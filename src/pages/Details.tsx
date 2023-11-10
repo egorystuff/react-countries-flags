@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import {useEffect, useState, FC} from "react";
+import {useParams, useNavigate} from "react-router-dom";
 import axios from "axios";
 
-import { IoArrowBack } from "react-icons/io5";
+import {IoArrowBack} from "react-icons/io5";
 
-import { searcByCountry } from "../config";
-import { Button } from "../components/Button";
-import { Info } from "../components/Info";
+import {searchByCountry} from "../config";
+import {Button} from "../Layouts/Button";
+import {Info} from "../components/Info/Info";
 
 type InfoType = {
   name: { common: string; nativeName: {}; official: string };
@@ -23,14 +23,14 @@ type InfoType = {
   borders: [];
 } | null;
 
-export const Details: React.FC = () => {
-  const { name } = useParams<string>();
+const Details: FC = () => {
+  const {name} = useParams<string>();
   const navigate = useNavigate();
 
   const [country, setCountry] = useState<InfoType>(null);
 
   useEffect(() => {
-    axios.get(searcByCountry(name)).then(({ data }) => setCountry(data[0]));
+    axios.get(searchByCountry(name)).then(({ data }) => setCountry(data[0]));
   }, [name]);
 
   const countryInfo = {
@@ -46,13 +46,19 @@ export const Details: React.FC = () => {
     languages: country?.languages,
   };
 
+  const goToPrevPage = (): void => {
+    navigate(-1)
+  }
+
   return (
     <div>
-      <Button onClick={() => navigate(-1)}>
-        <IoArrowBack /> Back
+      <Button type="button" onClick={goToPrevPage}>
+        <IoArrowBack/> Back
       </Button>
 
-      {country && <Info navigate={navigate} {...countryInfo} />}
+      {country && <Info {...countryInfo} />}
     </div>
   );
 };
+
+export default Details

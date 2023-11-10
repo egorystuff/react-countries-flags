@@ -1,4 +1,4 @@
-import React from "react";
+import {FC, ReactNode} from "react";
 import styled from "styled-components";
 
 // styled-components----------------------------------------------------------------
@@ -27,9 +27,9 @@ const Wrapper = styled.section`
 // ---------------------------------------------------------------------------------
 
 type PropsType = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
-export const List: React.FC<PropsType> = (props) => {
-  return <Wrapper>{props.children}</Wrapper>;
+export const List: FC<PropsType> = ({children}) => {
+  return <Wrapper>{children}</Wrapper>;
 };
